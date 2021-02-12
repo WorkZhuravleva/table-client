@@ -38,7 +38,6 @@ const App = () => {
     }, []);
 
     const deleteRow = index => {
-        console.log(index);
         const newAmount = amount - table[index].amount;
         setTable(update(table, {$splice: [[index, 1]]}));
         setAmount(newAmount);

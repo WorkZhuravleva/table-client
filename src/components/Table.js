@@ -1,29 +1,11 @@
-import React, {useRef} from "react";
+import React from "react";
 import Row from "./Row";
-import {useDropzone} from "react-dropzone";
-import {useDrop} from "react-dnd";
-import {type} from "../constant";
 
 
 const Table = ({table, moveRow, deleteRow}) => {
-    const dropZone = useRef(null);
-
-    const {getRootProps} = useDropzone();
-
-    const [,drop] = useDrop({
-        accept: type,
-        drop(item){
-            console.log("I am here");
-            if (dropZone.current) {
-                deleteRow(item.index);
-            }
-        }
-    });
-
-    drop(dropZone);
 
     return (
-        <div ref={dropZone} className='data' {...getRootProps()}>
+        <div className='data'>
             <table className='table'>
                 <thead>
                 <tr>
@@ -40,6 +22,7 @@ const Table = ({table, moveRow, deleteRow}) => {
                                                  info={item}
                                                  index={index}
                                                  moveRow={moveRow}
+                                                 deleteRow={deleteRow}
                     />)}
                 </tbody>
             </table>

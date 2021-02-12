@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
 import {type} from "../constant";
 
-const Row = ({info, index, moveRow}) => {
+const Row = ({info, index, moveRow, deleteRow}) => {
     const ref = useRef(null);
 
     const [,drop] = useDrop({
@@ -25,7 +25,12 @@ const Row = ({info, index, moveRow}) => {
         item: {type, index},
         collect: monitor => ({
             isDragging: monitor.isDragging()
-        })
+        }),
+        end(item, monitor){
+            if (!monitor.didDrop()){
+                deleteRow(item.index);
+            }
+        }
     });
 
     drag(drop(ref));
